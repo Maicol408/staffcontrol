@@ -16,7 +16,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::all();
+        $empleados = Empleado::where('activo', true)->get();
         return view('empleados.index', compact('empleados'));
     }
     
@@ -105,8 +105,45 @@ class EmpleadoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Empleado $empleado)
     {
-        //
+        $empleado->update(['activo' => false]); // Desactiva el empleado en lugar de eliminarlo
+        return redirect()->route('empleados.index')->with('success', 'Empleado desactivado correctamente.');
     }
+
+    public function reactivar(Empleado $empleado)
+    {
+        $empleado->update(['activo' => true]);
+        return redirect()->route('empleados.index')->with('success', 'Empleado reactivado correctamente.');
+    } 
+
+    public function buscar(Request $request) 
+    
+    {
+       // Obtiene el valor del campo "query" enviado en la URL
+       $query = $request->input('query'); 
+
+        // Depuración: Mostrar lo que se recibe
+        dd($request->all()); 
+
+
+
+      if  (!$query) {
+        return redirect()->route('empleados.index')->with('error', 'Debes ingresar un término de búsqueda.');
+     }
+
+     $empleados = Empleado::where('nombre', 'LIKE', "%$query%")
+        ->orWhere('apellido', 'LIKE', "%$query%")
+        ->orWhere('email', 'LIKE', "%$query%")
+        ->get();
+
+     return view('empleados.index', compact('empleados'))
+        ->with('success', 'Resultados de búsqueda para: ' . $query);
+
+        dd($request->all()); // Muestra la entrada antes de procesarla
+
+    }
+
+    
+
 }

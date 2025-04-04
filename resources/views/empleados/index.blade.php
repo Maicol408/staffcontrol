@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<form action="{{ route('empleados.buscar') }}" method="GET">
+    <input type="text" name="query" class="form-control" placeholder="Buscar empleado...">
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+
 <div class="container">
     <h1>Lista de Empleados</h1>
     <a href="{{ route('empleados.create') }}" class="btn btn-primary">Crear Nuevo Empleado</a>
@@ -36,6 +42,14 @@
                             <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este empleado?')">Eliminar</button>
                         </form>
                     </td>
+                    @if (!$empleado->activo)
+                       <form action="{{ route('empleados.reactivar', $empleado->id) }}" method="POST">
+                       @csrf
+                       @method('PUT')
+                       <button type="submit" class="btn btn-warning">Reactivar</button>
+                       </form>
+                    @endif
+ 
                 </tr>
             @endforeach
         </tbody>

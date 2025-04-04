@@ -43,4 +43,9 @@ Route::post('/empleados', [EmpleadoController::class, 'store'])->name('empleados
 
 Route::put('/empleados/{empleado}', [EmpleadoController::class, 'update'])->name('empleados.update');
 
+Route::put('/empleados/{empleado}/reactivar', [EmpleadoController::class, 'reactivar'])->name('empleados.reactivar');
+
+Route::get('empleados/buscar', [EmpleadoController::class, 'buscar'])->name('empleados.buscar');
+
+
 
