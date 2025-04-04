@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    protected $table = 'usuarios'; // Indicamos que la tabla real es "usuarios"
+    protected $table = 'users'; // Indicamos que la tabla real es "usuaos"
     
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -20,9 +20,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'nombre',
+        'name',
         'email',
         'password',
+        'id_empleado'
     ];
 
     /**

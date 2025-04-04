@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido');
-            $table->string('email')->unique();
+            //$table->string('email')->unique();
             $table->string('telefono')->nullable();
             $table->foreignId('departamento_id')->constrained('departamentos')->cascadeOnDelete();
             $table->foreignId('cargo_id')->constrained('cargos')->cascadeOnDelete();

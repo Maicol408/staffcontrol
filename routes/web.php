@@ -11,7 +11,7 @@ use App\Http\Controllers\HomeController; // ✅ Importar HomeController
 
 // ✅ Rutas con Resource Controllers (Eliminar duplicados)
 Route::resource('empleados', EmpleadoController::class);
-Route::resource('usuarios', UsuarioController::class);
+Route::resource('users', UsuarioController::class);
 Route::resource('cargos', CargoController::class);
 Route::resource('departamentos', DepartamentoController::class);
 Route::resource('asistencias', AsistenciaController::class);
@@ -31,4 +31,11 @@ Auth::routes();
 
 // ✅ Ruta del home después del login
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//editar un empleado
+Route::get('/empleados/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit');
+
+Route::get('/empleados/create', [EmpleadoController::class, 'create'])->name('empleados.create');
+
+Route::post('/empleados', [EmpleadoController::class, 'store'])->name('empleados.store');
 
