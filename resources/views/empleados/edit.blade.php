@@ -22,8 +22,17 @@
             <label for="telefono" class="form-label">Teléfono:</label>
             <input type="text" name="telefono" class="form-control" value="{{ $empleado->telefono }}" required>
         </div>
+        <div class="mb-3">
+            <label for="departamento_id" class="form-label">Departamento:</label>
+            <input type="number" name="departamento_id" class="form-control" value="{{ $empleado->departamento_id }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="cargo_id" class="form-label">Cargo:</label>
+            <input type="number" name="cargo_id" class="form-control" value="{{ $empleado->cargo_id }}" required>
+        </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>
         <a href="{{ route('empleados.index') }}" class="btn btn-secondary">Cancelar</a>
+        
     </form>
 </div>
 @endsection

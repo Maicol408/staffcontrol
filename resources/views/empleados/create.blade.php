@@ -21,6 +21,28 @@
             <label for="telefono" class="form-label">Teléfono:</label>
             <input type="text" name="telefono" class="form-control" required>
         </div>
+    
+        <div class="mb-3">
+        <label for="departamento_id" class="form-label">Departamento:</label>
+    <select name="departamento_id" class="form-control" required>
+        <option value="">Seleccione un departamento</option>
+        @foreach($departamentos as $departamento)
+            <option value="{{ $departamento->id }}">{{ $departamento->nombre }}</option>
+        @endforeach 
+    </select>
+    
+        <div class="mb-3">
+        <label for="cargo_id" class="form-label">Cargo:</label>
+    <select name="cargo_id" class="form-control" required>
+        <option value="">Seleccione un cargo</option>
+        @foreach ($cargos as $cargo)
+            <option value="{{ $cargo->id }}">{{ $cargo->nombre }}</option>
+        @endforeach
+    </select>
+ </div>
+
+    </select>
+    </div>
         <button type="submit" class="btn btn-success">Guardar</button>
         <a href="{{ route('empleados.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>

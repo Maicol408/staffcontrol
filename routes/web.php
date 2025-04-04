@@ -33,9 +33,14 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //editar un empleado
-Route::get('/empleados/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit');
+Route::get('empleados/{empleado}/edit', [EmpleadoController::class, 'edit'])->name('empleados.edit');
 
 Route::get('/empleados/create', [EmpleadoController::class, 'create'])->name('empleados.create');
 
+Route::get('/empleados/{empleado}', [EmpleadoController::class, 'show'])->name('empleados.show');
+
 Route::post('/empleados', [EmpleadoController::class, 'store'])->name('empleados.store');
+
+Route::put('/empleados/{empleado}', [EmpleadoController::class, 'update'])->name('empleados.update');
+
 
