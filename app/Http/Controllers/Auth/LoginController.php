@@ -52,5 +52,7 @@ class LoginController extends Controller
     
         return redirect('/'); // Fallback por si el rol no es ninguno de los anteriores
     }
+
+    
         
 }

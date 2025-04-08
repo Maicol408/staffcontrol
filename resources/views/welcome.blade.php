@@ -12,6 +12,51 @@
         'resources/js/app.js'
     ])
 @endif
+<style>
+  .steps-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: white;
+  }
+
+  .step .circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(145deg, #00d1c1, #005b83);
+    border-radius: 50%;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .step .description {
+    font-weight: 600;
+    color: 333;
+  }
+
+  .arrow {
+    font-size: 24px;
+    color: #00bcd4;
+  }
+
+  @media (max-width: 768px) {
+    .steps-container {
+      flex-direction: column;
+    }
+
+    .arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>
+
 
 </head>
 <body>
@@ -84,10 +129,9 @@
                            Somos una aplicación que surgió a raíz
                            de los problemas que enfrentan algunas
                            instituciones del país con el ingreso
-                           de los estudiantes. Decidimos crear una
-                           forma de acelerar este proceso mediante
-                           el uso de nuevas tecnologías.
-
+                           de las personas a sus instalaciones.
+                           Decidimos crear una forma de automatizar
+                           el ingreso de las personas.
                        </p>
                        <div>
                            <a href="more.html">
@@ -99,6 +143,58 @@
            </div>
        </div>
    </section>
+   <!-- sección de pasos -->
+<section class="steps_section" style="padding: 50px 0; background-color:rgb(255, 255, 255);">
+  <div class="container">
+    <h2 class="text-center mb-5" style="font-weight: bold; color: #005b83;">¿Cómo funciona?</h2>
+    <div class="steps-container d-flex flex-wrap justify-content-center align-items-center gap-5">
+
+      <div class="step text-center">
+        <div class="circle mx-auto">1</div>
+        <div class="description">Contactarse con un acesor</div>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step text-center">
+        <div class="circle mx-auto">2</div>
+        <div class="description">Solicitar el software</div>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step text-center">
+        <div class="circle mx-auto">3</div>
+        <div class="description">Recibes un usuario de administrador</div>
+      </div>
+      <div class="arrow">➔</div>
+      <div class="step text-center">
+        <div class="circle mx-auto">4</div>
+        <div class="description">Disfrutar de tu programa</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<br>
+<!-- gallery section -->
+<section class="gallery-section layout_padding">
+       <div class="container">
+           <h2>
+               Nuestros Asociados.
+           </h2>
+       </div>
+       <div class="container ">
+           <div class="img_box box-3">
+               <img src="images/imagen1.png" alt="">
+           </div>
+           <div class="img_box box-4">
+               <img src="images/G2.png" alt="">
+           </div>
+           <div class="img_box box-5">
+               <img src="images/G5.png" alt="">
+           </div>
+       </div>
+   </section>
+   <!-- end gallery section -->
+<br>
+<br>
    <!-- info section -->
    <section class="info_section layout_padding2">
        <div class="container">
