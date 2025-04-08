@@ -6,6 +6,10 @@ use App\Models\Cargo;
 use App\Models\Departamento;
 use Illuminate\Http\Request;
 use App\Models\Empleado;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Mail\CredencialesEmpleadoMail;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -14,11 +18,20 @@ class EmpleadoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $empleados = Empleado::where('activo', true)->get();
-        return view('empleados.index', compact('empleados'));
+    public function index(Request $request)
+{
+    $query = Empleado::query();
+
+    if ($request->has('search')) {
+        $search = $request->input('search');
+        $query->where('nombre', 'like', "%{$search}%")
+              ->orWhere('apellido', 'like', "%{$search}%");
     }
+
+    $empleados = $query->paginate(10);
+    $empleados = Empleado::where('activo', true)->get();
+    return view('empleados.index', compact('empleados'));
+}
     
 
 
@@ -36,28 +49,41 @@ class EmpleadoController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
+    {
+       // Validar el request como ya lo tienes
+        $request->validate([
         'nombre' => 'required|string|max:255',
         'apellido' => 'required|string|max:255',
-        'email' => 'required|email|unique:empleados,email',
-        'telefono' => 'required|string|max:20',
-        'departamento_id' => 'required|exists:departamentos,id',
-        'cargo_id' => 'required|exists:cargos,id', // Asegurar que existe en la tabla `cargos`
-    ]);
+        'identificacion' => 'required|unique:empleados,identificacion',
+        'email' => 'required|email|unique:users,email',
+        // Otros campos...
+        ]);
 
-    Empleado::create([
+        // 1. Crear el empleado
+        $empleado = Empleado::create([
         'nombre' => $request->nombre,
         'apellido' => $request->apellido,
+        'identificacion' => $request->identificacion,
         'email' => $request->email,
-        'telefono' => $request->telefono,
-        'departamento_id' => $request->departamento_id,
-        'cargo_id' => $request->cargo_id,
+        // Otros campos...
     ]);
 
-    return redirect()->route('empleados.index')->with('success', 'Empleado creado exitosamente');
-}
+      // 2. Crear automáticamente el usuario
+    User::create([
+        'name' => $empleado->nombre . ' ' . $empleado->apellido,
+        'email' => $empleado->email,
+        'password' => Hash::make($empleado->identificacion), // La contraseña será su número de ID
+        'rol' => 'empleado', // o el rol que corresponda
+        'id_empleado' => $empleado->id,
+    ]);
+    Mail::to($empleado->email)->send(new CredencialesEmpleadoMail(
+        $empleado->nombre . ' ' . $empleado->apellido,
+        $empleado->email,
+        $empleado->identificacion // contraseña antes de encriptar
+    ));
 
+    return redirect()->route('empleados.index')->with('success', 'Empleado y usuario creados correctamente.');
+}
     /**
      * Display the specified resource.
      */
@@ -117,32 +143,18 @@ class EmpleadoController extends Controller
         return redirect()->route('empleados.index')->with('success', 'Empleado reactivado correctamente.');
     } 
 
-    public function buscar(Request $request) 
-    
-    {
-       // Obtiene el valor del campo "query" enviado en la URL
-       $query = $request->input('query'); 
+    public function buscar(Request $request)
+{
+    $query = $request->input('query');
 
-        // Depuración: Mostrar lo que se recibe
-        dd($request->all()); 
+    $empleados = Empleado::where('nombre', 'like', "%$query%")
+                         ->orWhere('apellido', 'like', "%$query%")
+                         ->orWhere('email', 'like', "%$query%")
+                         ->get();
 
+    return view('empleados.index', compact('empleados'));
+}
 
-
-      if  (!$query) {
-        return redirect()->route('empleados.index')->with('error', 'Debes ingresar un término de búsqueda.');
-     }
-
-     $empleados = Empleado::where('nombre', 'LIKE', "%$query%")
-        ->orWhere('apellido', 'LIKE', "%$query%")
-        ->orWhere('email', 'LIKE', "%$query%")
-        ->get();
-
-     return view('empleados.index', compact('empleados'))
-        ->with('success', 'Resultados de búsqueda para: ' . $query);
-
-        dd($request->all()); // Muestra la entrada antes de procesarla
-
-    }
 
     
 

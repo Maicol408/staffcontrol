@@ -64,11 +64,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $rol = 'empleado';
+
+        if ($data['email'] === '@staffcontrol.com') {
+            $rol = 'admin';
+        }
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'id_empleado' => $data['id_empleado'], // Asegurar que se inserta
+            'rol' => $rol,
         ]);
-    }
+    }  
 }

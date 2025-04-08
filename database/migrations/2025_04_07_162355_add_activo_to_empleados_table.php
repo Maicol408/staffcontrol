@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cargos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nombre', 100);
-            $table->decimal('salario', 10, 2);
-            $table->timestamps();
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->boolean('activo')->default(true); // o false según lo que necesites
         });
     }
     
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cargos');
+        Schema::table('empleados', function (Blueprint $table) {
+            //
+        });
     }
 };
