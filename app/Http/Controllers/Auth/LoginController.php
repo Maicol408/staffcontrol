@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 
 class LoginController extends Controller
 {
+    
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -37,4 +41,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+ 
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->rol === 'admin') {
+            return redirect('/empleados');
+        } elseif ($user->rol === 'empleado') {
+            return redirect('/dashboard'); // o cualquier ruta de empleado
+        }
+    
+        return redirect('/'); // Fallback por si el rol no es ninguno de los anteriores
+    }
+        
 }

@@ -23,7 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'id_empleado'
+        'id_empleado',
+        'role'
     ];
 
     /**
@@ -48,4 +49,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function empleado()
+    {
+        return $this->hasOne(Empleado::class, 'usuario_id');
+    }
+    
+    public function esEmpleado()
+    {
+        return $this->rol === 'empleado';
+    }
+    
+    public function esAdmin()
+    {
+        return $this->rol === 'admin';
+    }
+    
+        
 }

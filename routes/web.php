@@ -48,3 +48,9 @@ Route::put('/empleados/{empleado}/reactivar', [EmpleadoController::class, 'react
 Route::get('empleados/buscar', [EmpleadoController::class, 'buscar'])->name('empleados.buscar');
 
 Route::get('/empleados', [EmpleadoController::class, 'index'])->name('empleados.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/perfil', [EmpleadoController::class, 'perfil'])->name('empleado.perfil');
+    Route::get('/empleados', [EmpleadoController::class, 'index'])->name('empleados.index');
+});
+

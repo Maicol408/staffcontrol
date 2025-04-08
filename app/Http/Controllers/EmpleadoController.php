@@ -51,22 +51,27 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
        // Validar el request como ya lo tienes
-        $request->validate([
+       $request->validate([
         'nombre' => 'required|string|max:255',
         'apellido' => 'required|string|max:255',
         'identificacion' => 'required|unique:empleados,identificacion',
         'email' => 'required|email|unique:users,email',
-        // Otros campos...
-        ]);
-
-        // 1. Crear el empleado
-        $empleado = Empleado::create([
+        'telefono' => 'required|string|max:20',
+        'departamento_id' => 'required|exists:departamentos,id',
+        'cargo_id' => 'required|exists:cargos,id',
+    ]);
+    
+    // Crear el empleado
+    $empleado = Empleado::create([
         'nombre' => $request->nombre,
         'apellido' => $request->apellido,
         'identificacion' => $request->identificacion,
         'email' => $request->email,
-        // Otros campos...
+        'telefono' => $request->telefono,
+        'departamento_id' => $request->departamento_id,
+        'cargo_id' => $request->cargo_id,
     ]);
+    
 
       // 2. Crear automáticamente el usuario
     User::create([
