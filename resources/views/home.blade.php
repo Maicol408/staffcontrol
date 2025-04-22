@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,51 +14,6 @@
     ])
     @endif
 
-    <style>
-  .steps-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-  }
-
-  .step .circle {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(145deg, #00d1c1, #005b83);
-    border-radius: 50%;
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-  }
-
-  .step .description {
-    font-weight: 600;
-    color: #333;
-  }
-
-  .arrow {
-    font-size: 24px;
-    color: #00bcd4;
-  }
-
-  @media (max-width: 768px) {
-    .steps-container {
-      flex-direction: column;
-    }
-
-    .arrow {
-      transform: rotate(90deg);
-    }
-  }
-</style>
-
-
 </head>
 <body>
    <div class="hero_area">
@@ -65,7 +21,7 @@
       <header class="header_section">
          <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="/welcome">
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">
                     <img src="images/logo.png" alt="">
                     <span>
                        STAFF CONTROL
@@ -80,7 +36,7 @@
                     <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                         <ul class="navbar-nav  ">
                             <li class="nav-item active">
-                                <a class="nav-link" href="/welcome">inicio <span class="sr-only"></span></a>
+                                <a class="nav-link" href="http://127.0.0.1:8000/">inicio <span class="sr-only"></span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Contactanos</a>
@@ -110,39 +66,9 @@
    </div>
 <br>
 <br>
-
-<!-- sección de pasos -->
-<section class="steps_section" style="padding: 50px 0; background-color: #f5f5f5;">
-  <div class="container">
-    <h2 class="text-center mb-5" style="font-weight: bold; color: #005b83;">¿Cómo funciona?</h2>
-    <div class="steps-container d-flex flex-wrap justify-content-center align-items-center gap-5">
-
-      <div class="step text-center">
-        <div class="circle mx-auto">1</div>
-        <div class="description">Buscar universidad</div>
-      </div>
-      <div class="arrow">➔</div>
-      <div class="step text-center">
-        <div class="circle mx-auto">2</div>
-        <div class="description">Crear cuenta</div>
-      </div>
-      <div class="arrow">➔</div>
-      <div class="step text-center">
-        <div class="circle mx-auto">3</div>
-        <div class="description">Enviar solicitud</div>
-      </div>
-      <div class="arrow">➔</div>
-      <div class="step text-center">
-        <div class="circle mx-auto">4</div>
-        <div class="description">Pagar y enviar</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <br>
 
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -251,6 +177,4 @@
 </body>
 </html>
 
-
-
-
+@endsection

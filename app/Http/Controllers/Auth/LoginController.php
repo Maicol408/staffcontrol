@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 
+
 class LoginController extends Controller
 {
     
@@ -42,16 +43,19 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
  
-    protected function authenticated(Request $request, $user)
-    {
-        if ($user->rol === 'admin') {
-            return redirect('/empleados');
-        } elseif ($user->rol === 'empleado') {
-            return redirect('/dashboard'); // o cualquier ruta de empleado
-        }
-    
-        return redirect('/'); // Fallback por si el rol no es ninguno de los anteriores
+
+
+protected function authenticated(Request $request, $user)
+{
+    if ($user->rol === 'admin') {
+        return redirect('/empleados'); // admin ve el listado
+    } elseif ($user->rol === 'empleado') {
+        return redirect()->route('empleados.show', $user->id); // redirige al show del usuario logueado
     }
+
+    return redirect('/'); // fallback
+}
+
 
     
         

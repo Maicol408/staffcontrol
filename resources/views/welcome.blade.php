@@ -65,7 +65,7 @@
       <header class="header_section">
          <div class="container-fluid">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
-                <a class="navbar-brand" href="/welcome">
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">
                     <img src="images/logo.png" alt="">
                     <span>
                        STAFF CONTROL
@@ -80,7 +80,7 @@
                     <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
                         <ul class="navbar-nav  ">
                             <li class="nav-item active">
-                                <a class="nav-link" href="/welcome">inicio <span class="sr-only"></span></a>
+                                <a class="nav-link" href="http://127.0.0.1:8000/">inicio <span class="sr-only"></span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="contact.html">Contactanos</a>
